@@ -1,7 +1,19 @@
-#include <ESP32CAN.h>
-#include <CAN_config.h>
+/*****************************************************************
+* ERiksha CAN-Prototype Participant
+* WS2022/23 
+* Projektteilnehmer: brse1011, nejo1017
+* IDE: Arduino 2.0.3
+* Hardware: - WEMOS LOLIN32 Lite
+            - Texas Instruments SN65HVD230 CAN Adapter
+  Usage: Connect Lolin Board to USB Power
+*******************************************************************/
+#include "src/ESP32CAN.h"
+#include "src/CAN_config.h"
 /////////////////////////////
 ///THIS//IS//ON//THE//LOLIN//
+/////////////////////////////
+/////////////////////////////
+///Check//RX//AND//TX//PINS//
 /////////////////////////////
 CAN_device_t CAN_cfg;
 RTC_DATA_ATTR int bootCount = 0;
@@ -22,9 +34,7 @@ void setup() {
     esp_deep_sleep_start();
     }
 }
-
 void loop() {
-  
     CAN_frame_t rx_frame;
     //receive next CAN frame from queue
     if(xQueueReceive(CAN_cfg.rx_queue,&rx_frame, 3*portTICK_PERIOD_MS)==pdTRUE){
@@ -33,16 +43,18 @@ void loop() {
           printf(" RTR from 0x%08x, DLC %d\r\n",rx_frame.MsgID,  rx_frame.FIR.B.DLC);
         else{
           printf(" from 0x%08x, DLC %d\n",rx_frame.MsgID,  rx_frame.FIR.B.DLC);
-          for(int i = 0; i < 8; i++){
+          for(int i = 0; i < rx_frame.FIR.B.DLC; i++){
             printf("%c\t", (char)rx_frame.data.u8[i]);
           }
-          if(rx_frame.data.u8[0] == 'h'){
+          if(rx_frame.data.u8[0] == 't'){
             digitalWrite(25, !digitalRead(25)); //toggle LED
           }
         }
+      }else{
+        esp_deep_sleep_start();
       }
     }
     if(digitalRead(25)== LOW){
-    esp_deep_sleep_start(); //Start Sleep
+      esp_deep_sleep_start(); //Start Sleep
     }
 }
