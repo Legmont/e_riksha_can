@@ -1,6 +1,17 @@
-//nejo1017,brse1011, WS22/23, arduino v2.0,this is on esp with dev module
-#include <ESP32CAN.h>
-#include <CAN_config.h>
+/*****************************************************************
+* ERiksha CAN-Prototyp Master
+* WS2022/23 
+* Projektteilnehmer: brse1011, nejo1017
+* IDE: Arduino 2.0.3
+* Hardware: - ESP32 Dev Module
+            - Texas Instruments SN65HVD230 CAN Adapter
+  Usage:  1. Connect ESP32 Board to USB power Source
+          2. Touch GPIO 15 (Touch3) with your finger to wake-up the ESP32 from deep-sleep
+          3. ESP32 will send a CAN Message to the Lolin Board
+          4. This will wake up the Lolin and toggle the LED attached to the Lolin Board
+*******************************************************************/
+#include "src/ESP32CAN.h"
+#include "src/CAN_config.h"
 ///////////////////////////
 ///THIS//IS//ON//THE//ESP//
 ///////////////////////////

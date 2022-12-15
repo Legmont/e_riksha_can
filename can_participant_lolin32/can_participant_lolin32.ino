@@ -1,6 +1,14 @@
-//nejo1017,brse1011, WS22/23, arduino v2.0,this is on wemoslilin lite
-#include <ESP32CAN.h>
-#include <CAN_config.h>
+/*****************************************************************
+* ERiksha CAN-Prototype Participant
+* WS2022/23 
+* Projektteilnehmer: brse1011, nejo1017
+* IDE: Arduino 2.0.3
+* Hardware: - WEMOS LOLIN32 Lite
+            - Texas Instruments SN65HVD230 CAN Adapter
+  Usage: Connect Lolin Board to USB Power
+*******************************************************************/
+#include "src/ESP32CAN.h"
+#include "src/CAN_config.h"
 /////////////////////////////
 ///THIS//IS//ON//THE//LOLIN//
 /////////////////////////////
